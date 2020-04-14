@@ -8,9 +8,10 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     PrintLine(TEXT("Welcome to Bulls and Cows\n"));
     PrintLine(TEXT("Guess the 4 letter word."));
     PrintLine(TEXT("Press enter to continue..."));
-    HiddenWord = TEXT("coal");
-
-    // set lives
+    
+    
+    SetupGame();
+    
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
@@ -33,3 +34,9 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
     // check number of characters
      // remove life
 }   
+
+void UBullCowCartridge::SetupGame()
+{
+    HiddenWord = TEXT("coal");
+    Lives = 5;
+}
