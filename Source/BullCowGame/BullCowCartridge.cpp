@@ -26,12 +26,14 @@ void UBullCowCartridge::SetupGame()
     PrintLine(TEXT("Guess the %i letter word."), HiddenWord.Len());
     PrintLine(TEXT("Lives: %i"), Lives);
     PrintLine(TEXT("Type your answer\nand press enter to continue."));
+
+    //const TCHAR HW[] = TEXT("cakes");
 }
 
 void UBullCowCartridge::EndGame()
 {
     bGameOver = true;
-    PrintLine(TEXT("Please press enter to play again."));
+    PrintLine(TEXT("\nPlease press enter to play again."));
 }
 
 void UBullCowCartridge::ProcessGuess(FString Guess)
@@ -41,31 +43,43 @@ void UBullCowCartridge::ProcessGuess(FString Guess)
         ClearScreen();
         SetupGame();
     }
-    else
+    
+
+    if (Guess == HiddenWord)
     {
-
-        if (Guess == HiddenWord)
-        {
-            PrintLine(TEXT("Well done"));
-            EndGame();
-        }
-        else
-        {
-            if (Guess.Len() != HiddenWord.Len())
-            {
-                PrintLine(TEXT("You are looking for a %i letter word."), HiddenWord.Len());
-            }
-
-            --Lives;
-            if (Lives > 0)
-            {
-                PrintLine(TEXT("Please try again. Lives: %i"), Lives);
-            }
-            else
-            {
-                PrintLine(TEXT("You have no lives left."));
-                EndGame();
-            }
-        }
+        PrintLine(TEXT("Well done"));
+        EndGame();
+        return;
     }
+       
+    if (Guess.Len() != HiddenWord.Len())
+    {
+        PrintLine(TEXT("You are looking for a %i letter word."), HiddenWord.Len());
+        return;
+    }
+
+    if (!IsIsogram(Guess))
+    {
+        PrintLine(TEXT("No repeating letters please, guess again"));
+        return;
+    }
+
+
+    --Lives;
+    if (Lives <= 0)
+    {
+        ClearScreen();
+        PrintLine(TEXT("You have no lives left."));
+        PrintLine(TEXT("The hidden word was %s."), *HiddenWord);
+        EndGame();
+    }
+    
+    PrintLine(TEXT("Please try again. Lives: %i"), Lives);
+}
+
+bool UBullCowCartridge::IsIsogram(FString Word)
+{
+    
+    
+    return true;
 }
