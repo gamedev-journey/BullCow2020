@@ -28,6 +28,9 @@ void UBullCowCartridge::SetupGame()
     PrintLine(TEXT("Type your answer\nand press enter to continue."));
 
     //const TCHAR HW[] = TEXT("cakes");
+
+    IsIsogram(HiddenWord);
+
 }
 
 void UBullCowCartridge::EndGame()
@@ -77,9 +80,12 @@ void UBullCowCartridge::ProcessGuess(FString Guess)
     PrintLine(TEXT("Please try again. Lives: %i"), Lives);
 }
 
-bool UBullCowCartridge::IsIsogram(FString Word)
+bool UBullCowCartridge::IsIsogram(FString Word) const
 {
-    
+    for (int32 Index = 0; Index < Word.Len(); Index++)
+    {
+        PrintLine(TEXT("%c"), Word[Index]);
+    }
     
     return true;
 }
