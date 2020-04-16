@@ -6,7 +6,7 @@ void UBullCowCartridge::BeginPlay() // When the game starts
 {
     Super::BeginPlay();
     
-    GetValidWords(Words);
+    Isogram = GetValidWords(Words);
     SetupGame();
 
     
@@ -19,13 +19,14 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
 
 void UBullCowCartridge::SetupGame()
 {
-    HiddenWord = TEXT("coal");
+    HiddenWord = Isogram[FMath::RandRange(0, Isogram.Num() - 1)];
     Lives = HiddenWord.Len();
     bGameOver = false;
     PrintLine(TEXT("Welcome to Bulls and Cows\n"));
     PrintLine(TEXT("Guess the %i letter word."), HiddenWord.Len());
     PrintLine(TEXT("Lives: %i"), Lives);
     PrintLine(TEXT("Type your answer\nand press enter to continue."));
+    PrintLine(TEXT("The word is %s"), *HiddenWord);
     
 
 
